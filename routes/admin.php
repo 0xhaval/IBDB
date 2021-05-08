@@ -14,6 +14,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('user', UserController::class);
     Route::resource('book', BookController::class);
     Route::resource('category', CategoryController::class);
-    Route::resource('comment', CommentController::class);
 
 });

@@ -19,12 +19,13 @@
     </div>
 
 
+    @auth
     <div class="card shadow-sm mb-4 bg-white rounded mt-5">
         <div class="card-header bg-dark text-light mb-3">
             Write a comment...
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.comment.store') }}" method="post">
+            <form action="{{ route('comment.store') }}" method="post">
                 @csrf
                 <input type="text" hidden name="user_id" value="{{ Auth::user()->id }}">
                 <input type="text" hidden name="book_id" value="{{ $book->id }}">
@@ -34,8 +35,9 @@
             </form>
         </div>
     </div>
+    @endauth
     @forelse ($book->comments as $comment)
-        <div class="card shadow-sm mb-4 bg-white rounded">
+        <div class="card shadow-sm mb-4 bg-white rounded mt-4">
             <div class="card-header">
                 <a href="#">
                     {{ $comment->user->name }}
@@ -46,13 +48,17 @@
             </div>
             <div class="card-body">
                 <p>{{ $comment->content }}</p>
-                <a href="#" class="btn btn-danger float-right"
-                    onclick="document.getElementById('delete-{{ $comment->id }}').submit();"
-                >Delete</a>
+                @auth
+                    @if (Auth::user()->id == $comment->user->id)
+                        <a href="#" class="btn btn-danger float-right"
+                            onclick="document.getElementById('delete-{{ $comment->id }}').submit();"
+                        >Delete</a>
+                    @endif
+                @endauth
             </div>
         </div>
 
-        <form action="{{ route('admin.comment.destroy', $comment->id) }}" method="POST" id="delete-{{ $comment->id }}">
+        <form action="{{ route('comment.destroy', $comment->id) }}" method="POST" id="delete-{{ $comment->id }}">
             @csrf
             @method('delete')
         </form>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Support\Facades\Route;
 require __DIR__.'/admin.php';
@@ -25,3 +26,4 @@ Route::resource('contact', ContactController::class);
 
 Route::put('/user/{user}', [FrontendController::class, 'updateUser'])->name('user.update');
 Route::get('/user/edit/{user}', [FrontendController::class, 'editUser'])->name('user.edit');
+Route::resource('comment', CommentController::class);

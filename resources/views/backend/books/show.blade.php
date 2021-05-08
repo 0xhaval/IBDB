@@ -22,7 +22,7 @@
             Write a comment...
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.comment.store') }}" method="post">
+            <form action="{{ route('comment.store') }}" method="post">
                 @csrf
                 <input type="text" hidden name="user_id" value="{{ Auth::user()->id }}">
                 <input type="text" hidden name="book_id" value="{{ $book->id }}">
@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <form action="{{ route('admin.comment.destroy', $comment->id) }}" method="POST" id="delete-{{ $comment->id }}">
+        <form action="{{ route('comment.destroy', $comment->id) }}" method="POST" id="delete-{{ $comment->id }}">
             @csrf
             @method('delete')
         </form>
